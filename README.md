@@ -51,8 +51,8 @@ ffmpeg -version
 ### 2. Installation
 Clone the repository:
 ```bash
-git clone https://github.com/sandeepthala07-png/auto-clip-og.git
-cd auto-clip-og
+git clone https://github.com/sandeepthej/clip-og.git
+cd clip-og
 ```
 
 Install Python dependencies:
@@ -93,3 +93,4 @@ http://localhost:8000
 
 ## 📜 License
 MIT License
+
