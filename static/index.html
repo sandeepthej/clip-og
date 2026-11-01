@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpusCut AI - Auto Clipper for Long-Form Videos to Viral Shorts</title>
+  <meta name="description" content="AI Auto Clipper that transforms long-form YouTube videos and podcasts into viral short-form clips for TikTok, Instagram Reels, and YouTube Shorts.">
+  
+  <!-- Modern Typography from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <!-- Main Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="/" class="logo-wrapper" id="nav-logo">
+        <div class="logo-icon">⚡</div>
+        <div class="logo-text">
+          <span>OpusCut<span style="color: var(--accent-cyan);">AI</span></span>
+          <span class="logo-badge">Auto Clipper</span>
+        </div>
+      </a>
+      <div class="header-status">
+        <span class="status-dot"></span>
+        <span>Engine Active • FFmpeg 9.0 • High-Speed Clipping</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-pill">
+        <span>✨ Powered by Speech & Hook AI Algorithms</span>
+      </div>
+      <h1 class="hero-title">
+        Turn Long Videos Into <span class="gradient-text">Viral Clips</span> in 1-Click
+      </h1>
+      <p class="hero-subtitle">
+        Automatically detect high-impact hooks, score virality, and cut punchy 9:16 vertical shorts. No forced captions—just clean, high-retention viral moments ready to publish.
+      </p>
+
+      <div class="hero-features-bar">
+        <div class="feature-tag">🎯 Virality Score 0-100</div>
+        <div class="feature-tag">🧠 Psychological Hook Detection</div>
+        <div class="feature-tag">📱 9:16 Opus-Style Framing</div>
+        <div class="feature-tag">✂ Flexible Clip Count (3 to 100)</div>
+        <div class="feature-tag">📦 1-Click ZIP Batch Export</div>
+      </div>
+    </section>
+
+    <!-- Studio Main Card -->
+    <section class="studio-card" id="studio-section">
+      <!-- Tab Navigation -->
+      <nav class="tabs-nav" role="tablist">
+        <button class="tab-btn active" id="tab-btn-youtube" data-tab="youtube" role="tab">
+          <span class="tab-icon">▶</span>
+          <span>YouTube Link</span>
+        </button>
+        <button class="tab-btn" id="tab-btn-upload" data-tab="upload" role="tab">
+          <span class="tab-icon">☁</span>
+          <span>Upload Video File</span>
+        </button>
+        <button class="tab-btn" id="tab-btn-samples" data-tab="samples" role="tab">
+          <span class="tab-icon">⚡</span>
+          <span>Try Demo Samples</span>
+        </button>
+      </nav>
+
+      <!-- TAB 1: YouTube Link -->
+      <div class="tab-content active" id="tab-content-youtube">
+        <div class="url-input-group">
+          <div class="input-box-wrapper">
+            <span class="input-icon">🔗</span>
+            <input 
+              type="text" 
+              class="custom-input" 
+              id="youtube-url-input" 
+              placeholder="Paste YouTube video or podcast URL (e.g. https://www.youtube.com/watch?v=...)"
+              autocomplete="off"
+            >
+          </div>
+          <button class="btn-fetch" id="btn-fetch-yt">
+            <span>Inspect Video</span>
+            <span>→</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB 2: Upload File -->
+      <div class="tab-content" id="tab-content-upload">
+        <div class="dropzone" id="file-dropzone">
+          <div class="dropzone-icon">📁</div>
+          <div class="dropzone-title">Drag & drop your long video here, or browse</div>
+          <div class="dropzone-sub">Supports MP4, MOV, WebM, MKV up to 4K</div>
+          <input type="file" id="video-file-input" accept="video/mp4,video/quicktime,video/webm,video/x-matroska" style="display: none;">
+        </div>
+      </div>
+
+      <!-- TAB 3: Demo Samples -->
+      <div class="tab-content" id="tab-content-samples">
+        <div class="samples-grid" id="samples-container">
+          <!-- Dynamically populated sample cards -->
+        </div>
+      </div>
+
+      <!-- Video Preview Card (When source is chosen) -->
+      <div class="video-preview-banner" id="video-preview-banner">
+        <img src="" alt="Video thumbnail" class="preview-thumb" id="preview-thumbnail">
+        <div class="preview-details">
+          <div class="preview-title" id="preview-title">Video Title</div>
+          <div class="preview-meta">
+            <span id="preview-uploader">Creator</span>
+            <span>•</span>
+            <span id="preview-duration">0m 00s</span>
+            <span>•</span>
+            <span class="preview-badge" id="preview-source-badge">Ready for Auto-Clipping</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAMPAIGN RULES & GUIDELINES (AI-Guided Clipping by User Brief) -->
+      <div class="campaign-rules-container" id="campaign-rules-container">
+        <div class="campaign-rules-header" id="toggle-campaign-rules">
+          <div class="rules-header-left">
+            <span class="rules-header-icon">📋</span>
+            <div class="rules-header-titles">
+              <div class="rules-title">Campaign Rules & Guidelines <span class="rules-active-pill" id="rules-status-badge">AI Active</span></div>
+              <div class="rules-subtitle">Upload rule screenshots, guidelines images, or paste your brief. OpusCut AI clips strictly to your campaign rules.</div>
+            </div>
+          </div>
+          <button type="button" class="btn-toggle-rules" id="btn-toggle-rules-ui">
+            <span id="rules-toggle-text">Configure Rules</span>
+            <span id="rules-toggle-arrow">▾</span>
+          </button>
+        </div>
+
+        <div class="campaign-rules-body" id="campaign-rules-body">
+          <!-- Image Dropzone for Rule Screenshots -->
+          <div class="rules-image-section">
+            <div class="section-sublabel">
+              <span>🖼</span>
+              <span>Upload Campaign Rule Screenshots / Brand Guidelines:</span>
+            </div>
+            <div class="rules-dropzone" id="rules-dropzone">
+              <div class="rules-drop-icon">📸</div>
+              <div class="rules-drop-text">
+                <strong>Click or Drag & Drop rule screenshots here</strong>
+                <span class="rules-drop-hint">Supports PNG, JPG, WebP. Windows OCR will instantly extract & parse the text into clipping rules.</span>
+              </div>
+              <input type="file" id="rules-file-input" multiple accept="image/png,image/jpeg,image/webp" style="display: none;">
+            </div>
+
+            <!-- Uploaded Image Preview Chips -->
+            <div class="rules-images-list" id="rules-images-list">
+              <!-- Dynamically populated thumbnail cards -->
+            </div>
+          </div>
+
+          <!-- Quick Presets -->
+          <div class="rules-presets-bar">
+            <span class="presets-label">⚡ Quick Presets:</span>
+            <button type="button" class="preset-chip" data-preset="tiktok">🚀 TikTok Viral Growth</button>
+            <button type="button" class="preset-chip" data-preset="saas">💼 SaaS & AI Scaling</button>
+            <button type="button" class="preset-chip" data-preset="mindset">🧠 Mindset & Discipline</button>
+            <button type="button" class="preset-chip" data-preset="wealth">💰 Wealth & Investing</button>
+            <button type="button" class="preset-chip" data-preset="education">🎓 Step-by-Step How-To</button>
+            <button type="button" class="preset-chip reset" id="btn-clear-rules">✕ Clear Rules</button>
+          </div>
+
+          <!-- Rules Text Brief -->
+          <div class="rules-text-group">
+            <div class="rules-text-header">
+              <label for="campaign-rules-text" class="section-sublabel">
+                <span>📝</span>
+                <span>Campaign Rules & Instructions Brief (Auto-filled by OCR, or type directly):</span>
+              </label>
+              <span class="ocr-status-tag" id="ocr-status-tag">Ready</span>
+            </div>
+            <textarea 
+              id="campaign-rules-text" 
+              class="custom-textarea" 
+              rows="3" 
+              placeholder="e.g. Focus on AI workflows, revenue scaling, and automation. Avoid chatbot wrappers and generic fluff. Target 15-30s clips starting with high-energy question hooks..."
+            ></textarea>
+          </div>
+
+          <!-- Fine-grained Rule Constraints -->
+          <div class="rules-constraints-grid">
+            <div class="constraint-box">
+              <label class="constraint-label">🎯 Must-Include Topics (comma-separated):</label>
+              <input type="text" id="rules-keywords-input" class="custom-input small" placeholder="e.g. ai, scale, workflows, revenue">
+            </div>
+
+            <div class="constraint-box">
+              <label class="constraint-label">🚫 Exclude / Banned Words (comma-separated):</label>
+              <input type="text" id="rules-banned-input" class="custom-input small" placeholder="e.g. wrapper, chatbots, fluff, boring">
+            </div>
+
+            <div class="constraint-box">
+              <label class="constraint-label">🪝 Required Hook Style:</label>
+              <select id="rules-hook-select" class="setting-select small">
+                <option value="any" selected>Any High-Impact Hook</option>
+                <option value="question_hook">Rhetorical Question Hooks Only</option>
+                <option value="bold_statement">Bold Statement Hooks Only</option>
+                <option value="curiosity_gap">Curiosity Gap Hooks Only</option>
+                <option value="story_opener">Story / Anecdote Openers Only</option>
+              </select>
+            </div>
+
+            <div class="constraint-box">
+              <label class="constraint-label">⚖ Rule Match Strictness:</label>
+              <select id="rules-strictness-select" class="setting-select small">
+                <option value="60">Flexible (60%+ Match)</option>
+                <option value="75" selected>Standard (75%+ Match)</option>
+                <option value="88">Strict (88%+ Match)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLIP CONFIGURATION SECTION -->
+      <div class="config-section">
+        <!-- CLIP COUNT SELECTOR (Core User Requirement: Ask how many clips) -->
+        <div class="section-label-group">
+          <label class="section-label">
+            <span>✂</span>
+            <span>How many viral clips do you want?</span>
+          </label>
+          <span class="section-hint">Select a preset or enter a custom number</span>
+        </div>
+
+        <div class="clip-count-selector" id="clip-count-selector">
+          <button type="button" class="count-chip" data-count="3">3 Clips</button>
+          <button type="button" class="count-chip" data-count="5">5 Clips</button>
+          <button type="button" class="count-chip active popular" data-count="10">10 Clips (Recommended)</button>
+          <button type="button" class="count-chip" data-count="20">20 Clips</button>
+          <button type="button" class="count-chip" data-count="30">30 Clips</button>
+          <button type="button" class="count-chip" data-count="50">50 Clips</button>
+          <button type="button" class="count-chip" data-count="100">100 Clips</button>
+          <div class="custom-count-wrapper">
+            <span class="custom-count-label">Custom:</span>
+            <input type="number" id="custom-clip-count" class="custom-count-input" min="1" max="150" value="10">
+          </div>
+        </div>
+
+        <!-- Format and Aspect Settings -->
+        <div class="settings-grid">
+          <div class="setting-box">
+            <div class="setting-title">Target Duration</div>
+            <select class="setting-select" id="target-duration-select">
+              <option value="auto" selected>Auto Optimal (25s - 55s)</option>
+              <option value="short">Short & Punchy (15s - 30s)</option>
+              <option value="medium">Standard (30s - 60s)</option>
+              <option value="extended">Extended (60s - 90s)</option>
+            </select>
+          </div>
+
+          <div class="setting-box">
+            <div class="setting-title">Aspect Ratio</div>
+            <select class="setting-select" id="aspect-ratio-select">
+              <option value="9:16" selected>9:16 Vertical (Reels / TikTok / Shorts)</option>
+              <option value="16:9">16:9 Original Landscape</option>
+              <option value="1:1">1:1 Square</option>
+            </select>
+          </div>
+
+          <div class="setting-box">
+            <div class="setting-title">Framing Style</div>
+            <select class="setting-select" id="crop-style-select">
+              <option value="blurred_background" selected>Opus Blur (Ambient Padded Background)</option>
+              <option value="black_background">Solid Black Background (Clean Letterbox/Pillarbox)</option>
+              <option value="center_crop">Center Crop (Full Screen Fill)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Primary Action Button -->
+        <button type="button" class="btn-process" id="btn-start-process">
+          <span>⚡ Generate Viral Clips by Rules</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- LIVE PROGRESS PIPELINE -->
+    <section class="pipeline-section" id="pipeline-section">
+      <div class="pipeline-header">
+        <div class="pipeline-title">
+          <span style="font-size: 1.4rem;">⚙</span>
+          <span>AI AutoClipper Pipeline Active</span>
+        </div>
+        <div class="pipeline-pct" id="pipeline-percent">0%</div>
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+
+      <div class="pipeline-status-text">
+        <span class="status-dot"></span>
+        <span id="pipeline-status-msg">Initializing viral moment analyzer...</span>
+      </div>
+    </section>
+
+    <!-- RESULTS SHOWCASE GALLERY -->
+    <section class="results-section" id="results-section">
+      <div class="results-header-bar">
+        <div class="results-title-group">
+          <h2>Viral Clips Generated</h2>
+          <div class="results-count-meta" id="results-count-meta">Showing 10 viral clips ranked by campaign rules & engagement score</div>
+        </div>
+        <div class="results-actions">
+          <a href="#" class="btn-zip-download" id="btn-download-all-zip" download>
+            <span>📦</span>
+            <span>Download All Clips (.zip)</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Filter Chips -->
+      <div class="filter-bar">
+        <button class="filter-chip active" data-filter="all">All Clips (<span id="count-all">0</span>)</button>
+        <button class="filter-chip" data-filter="rules">🎯 Campaign Rule Matches (<span id="count-rules">0</span>)</button>
+        <button class="filter-chip" data-filter="mega">🔥 Mega Viral (>90)</button>
+        <button class="filter-chip" data-filter="high">🚀 High Retention (>80)</button>
+      </div>
+
+      <!-- Clips Grid -->
+      <div class="clips-grid" id="clips-grid">
+        <!-- Rendered clip cards will appear here -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Fine-Tune Modal -->
+  <div class="modal-backdrop" id="trim-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Fine-Tune Clip Timestamps</h3>
+        <button class="modal-close" id="modal-close-btn">&times;</button>
+      </div>
+      <div class="trim-controls">
+        <div class="trim-row">
+          <div class="trim-label">
+            <span>Start Timestamp:</span>
+            <span id="trim-start-display" style="font-family: var(--font-mono); color: var(--accent-cyan);">00:00.0</span>
+          </div>
+          <input type="range" id="trim-start-slider" class="trim-slider" step="0.5">
+        </div>
+        <div class="trim-row">
+          <div class="trim-label">
+            <span>End Timestamp:</span>
+            <span id="trim-end-display" style="font-family: var(--font-mono); color: var(--accent-pink);">00:00.0</span>
+          </div>
+          <input type="range" id="trim-end-slider" class="trim-slider" step="0.5">
+        </div>
+      </div>
+      <button class="btn-process" id="btn-save-trim" style="padding: 14px; font-size: 1rem;">
+        <span>✂ Re-Cut Clip with New Timestamps</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Frontend Logic -->
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
